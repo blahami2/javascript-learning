@@ -1,22 +1,26 @@
 'use strict';
 
-function LikeButton() {
+function LikeButton(props) {
   const [liked, setLiked] = React.useState(false);
 
   if (liked) {
-    return 'You liked this!';
+    return 'You liked comment number ' + props.commentID;
   }
 
   return React.createElement(
     'button',
-    {
-      onClick: () => setLiked(true),
-    },
+    { onClick: () => setLiked(true) },
     'Like'
   );
 }
 
-// find the root element on the page and render our LikeButton there
-const rootNode = document.getElementById('like-button-root');
-const root = ReactDOM.createRoot(rootNode);
-root.render(React.createElement(LikeButton));
+// Find all DOM containers, and render Like buttons into them.
+// Note we're using CSS classes instead of IDs so that we can find several nodes.
+document.querySelectorAll('.like-button-root').forEach((rootNode) => {
+  const root = ReactDOM.createRoot(rootNode);
+  // Read the comment ID from a data-* attribute.
+  const commentID = parseInt(rootNode.dataset.commentid, 10);
+  root.render(
+    React.createElement(LikeButton, { commentID: commentID })
+  );
+});
