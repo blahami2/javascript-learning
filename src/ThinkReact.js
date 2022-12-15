@@ -24,22 +24,28 @@ function ProductRow({ product }) {
   );
 }
 
-function ProductTable({ products }) {
+function ProductTable({ products, filterText, inStockOnly }) {
   const rows = [];
   let lastCategory = null;
 
   products.forEach((product) => {
-    if (product.category !== lastCategory) {
-      // if category changed, add new category row
-      rows.push(
-        <ProductCategoryRow
-          category={product.category}
-          key={product.category}
-        />
-      );
+    // or string.indexOf(substring) !== -1 <=> true
+    if (
+      product.name.toLowerCase().includes(filterText.toLowerCase()) &&
+      (!inStockOnly || product.stocked)
+    ) {
+      if (product.category !== lastCategory) {
+        // if category changed, add new category row
+        rows.push(
+          <ProductCategoryRow
+            category={product.category}
+            key={product.category}
+          />
+        );
+      }
+      rows.push(<ProductRow product={product} key={product.name} />);
+      lastCategory = product.category;
     }
-    rows.push(<ProductRow product={product} key={product.name} />);
-    lastCategory = product.category;
   });
 
   return (
@@ -55,22 +61,30 @@ function ProductTable({ products }) {
   );
 }
 
-function SearchBar() {
+function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
-      <input type="text" placeholder="Search..." />
+      <input type="text" placeholder="Search..." value={filterText} />
       <label>
-        <input type="checkbox" /> Only show products in stock
+        <input type="checkbox" checked={inStockOnly} /> Only show products in
+        stock
       </label>
     </form>
   );
 }
 
 function FilterableProductTable({ products }) {
+  const [filterText, setFilterText] = useState("fruit");
+  const [inStockOnly, setInStockOnly] = useState(true);
+
   return (
     <div>
-      <SearchBar />
-      <ProductTable products={products} />
+      <SearchBar filterText={filterText} inStockOnly={inStockOnly} />
+      <ProductTable
+        products={products}
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+      />
     </div>
   );
 }
