@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, Component } from "react";
+import { Component } from "react";
 
 class Welcome extends Component {
   // object is created with props, that are parsed from '... name="..." ...' tag properties into a { name: "...", ... } object

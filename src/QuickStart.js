@@ -1,6 +1,6 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import { useState, Component } from "react";
+import { useState } from "react";
 
 function MyButton() {
   const name = "HappyButton";
