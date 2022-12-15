@@ -5,6 +5,11 @@
     <title>Hello World</title>
 </head>
 <body>
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
 
     <h2>Add React in One Minute</h2>
     <p>This page demonstrates using React with no build tooling.</p>
@@ -29,13 +34,9 @@
     <div class="like-button-root" data-commentid="3"></div>
     </p>
 
-    <!-- Load React. -->
-    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
     <!-- Load your React component. Note that this script needs to be loaded AFTER div with root id -->
-    <script src="like-button.js"></script>
+    <script src="like-button.js" type="text/babel"></script>
 
 </body>
 </html>
